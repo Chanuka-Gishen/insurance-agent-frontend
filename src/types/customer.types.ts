@@ -72,3 +72,42 @@ export interface CreateCustomerRequest {
   notes?: string;
   isActive?: boolean;
 }
+
+export interface UpdateCustomerRequest {
+  fullName?: string;
+
+  nic?: string;
+  dateOfBirth?: string;
+
+  phone?: string;
+  secondaryPhone?: string;
+  whatsappNumber?: string;
+  email?: string;
+
+  address?: string;
+  city?: string;
+
+  customerType?: "individual" | "business";
+
+  source?:
+    | "existing_customer"
+    | "referral"
+    | "walk_in"
+    | "phone"
+    | "social_media"
+    | "other";
+
+  lastContactDate?: string;
+  nextFollowUpDate?: string;
+  followUpNote?: string;
+
+  notes?: string;
+
+  isActive?: boolean;
+}
+
+export interface UpdateFollowUpRequest {
+  nextFollowUpDate?: string;
+  followUpNote?: string;
+  lastContactDate?: string;
+}

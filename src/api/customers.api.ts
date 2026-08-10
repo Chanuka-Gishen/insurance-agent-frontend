@@ -7,6 +7,8 @@ import type {
   Customer,
   CustomerListParams,
   CustomerListResponse,
+  UpdateCustomerRequest,
+  UpdateFollowUpRequest,
 } from "../types/customer.types";
 
 export const getCustomers = async (
@@ -48,6 +50,38 @@ export const createCustomer = async (
 
   if (!data.response) {
     throw new Error("Customer was not returned.");
+  }
+
+  return data.response;
+};
+
+export const updateCustomer = async (
+  id: string,
+  payload: UpdateCustomerRequest,
+): Promise<Customer> => {
+  const { data } = await apiClient.patch<ApiResponse<Customer>>(
+    `/customers/${id}`,
+    payload,
+  );
+
+  if (!data.response) {
+    throw new Error("Updated customer was not returned.");
+  }
+
+  return data.response;
+};
+
+export const updateCustomerFollowUp = async (
+  id: string,
+  payload: UpdateFollowUpRequest,
+): Promise<Customer> => {
+  const { data } = await apiClient.patch<ApiResponse<Customer>>(
+    `/customers/${id}`,
+    payload,
+  );
+
+  if (!data.response) {
+    throw new Error("Updated customer was not returned.");
   }
 
   return data.response;
