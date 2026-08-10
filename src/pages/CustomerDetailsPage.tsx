@@ -17,6 +17,7 @@ import { getApiErrorMessage } from "../utils/api.utils";
 
 import CustomerInfoItem from "../components/customers/CustomerInfoItem";
 import FollowUpEditor from "../components/customers/FollowUpEditor";
+import InsuranceList from "../components/insurances/InsuranceList";
 
 import { useCustomer } from "../hooks/customers/useCustomer";
 
@@ -287,6 +288,8 @@ const CustomerDetailsPage = () => {
               <CustomerInfoItem label="City" value={customer.city} />
             </div>
           </section>
+
+          <InsuranceList customerId={customer._id} />
 
           <section className="rounded-2xl border border-slate-200 bg-white p-5">
             <h2 className="font-semibold text-slate-900">Notes</h2>

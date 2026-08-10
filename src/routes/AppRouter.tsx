@@ -10,6 +10,7 @@ import LoginPage from "../pages/LoginPage";
 import SettingsPage from "../pages/SettingsPage";
 import CustomerDetailsPage from "../pages/CustomerDetailsPage";
 import EditCustomerPage from "../pages/EditCustomerPage";
+import CreateInsurancePage from "../pages/CreateInsurancePage";
 
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -30,6 +31,16 @@ const AppRouter = () => {
             <Route path="customers/:id/edit" element={<EditCustomerPage />} />
 
             <Route path="customers/:id" element={<CustomerDetailsPage />} />
+
+            <Route
+              path="customers/:customerId/insurances/create"
+              element={<CreateInsurancePage />}
+            />
+
+            <Route
+              path="customers/:customerId/insurances/:insuranceId"
+              element={<div>Insurance Details</div>}
+            />
 
             <Route path="follow-ups" element={<FollowUpsPage />} />
 
