@@ -2,6 +2,17 @@ import { z } from "zod";
 
 const optionalString = z.string().trim().optional().or(z.literal(""));
 
+export const customerTypeSchema = z.enum(["individual", "business"]);
+
+export const customerSourceSchema = z.enum([
+  "existing_customer",
+  "referral",
+  "walk_in",
+  "phone",
+  "social_media",
+  "other",
+]);
+
 export const createCustomerSchema = z.object({
   fullName: z.string().trim().min(2, "Full name is required"),
 
@@ -15,15 +26,20 @@ export const createCustomerSchema = z.object({
 
   whatsappNumber: optionalString,
 
-  email: z.email("Enter a valid email address").optional().or(z.literal("")),
+  email: z
+    .string()
+    .trim()
+    .email("Enter a valid email address")
+    .optional()
+    .or(z.literal("")),
 
   address: optionalString,
 
   city: optionalString,
 
-  customerType: z.string().min(1),
+  customerType: customerTypeSchema,
 
-  source: z.string().min(1),
+  source: customerSourceSchema,
 
   lastContactDate: optionalString,
 

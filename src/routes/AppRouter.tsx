@@ -9,6 +9,7 @@ import FollowUpsPage from "../pages/FollowUpsPage";
 import LoginPage from "../pages/LoginPage";
 import SettingsPage from "../pages/SettingsPage";
 import CustomerDetailsPage from "../pages/CustomerDetailsPage";
+import EditCustomerPage from "../pages/EditCustomerPage";
 
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -25,6 +26,8 @@ const AppRouter = () => {
             <Route path="customers" element={<CustomersPage />} />
 
             <Route path="customers/create" element={<CreateCustomerPage />} />
+
+            <Route path="customers/:id/edit" element={<EditCustomerPage />} />
 
             <Route path="customers/:id" element={<CustomerDetailsPage />} />
 

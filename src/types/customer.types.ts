@@ -1,3 +1,13 @@
+export type CustomerType = "individual" | "business";
+
+export type CustomerSource =
+  | "existing_customer"
+  | "referral"
+  | "walk_in"
+  | "phone"
+  | "social_media"
+  | "other";
+
 export interface Customer {
   _id: string;
   fullName: string;
@@ -13,8 +23,8 @@ export interface Customer {
   address?: string;
   city?: string;
 
-  customerType: string;
-  source: string;
+  customerType: CustomerType;
+  source: CustomerSource;
 
   lastContactDate?: string;
   nextFollowUpDate?: string;
