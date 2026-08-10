@@ -29,9 +29,7 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401) {
       storage.removeAccessToken();
 
-      if (window.location.pathname !== "/login") {
-        window.location.href = "/login";
-      }
+      window.dispatchEvent(new Event("auth:unauthorized"));
     }
 
     return Promise.reject(error);

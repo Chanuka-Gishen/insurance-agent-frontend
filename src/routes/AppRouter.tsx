@@ -1,0 +1,43 @@
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+
+import AppLayout from "../components/layout/AppLayout";
+
+import CreateCustomerPage from "../pages/CreateCustomerPage";
+import CustomersPage from "../pages/CustomersPage";
+import DashboardPage from "../pages/DashboardPage";
+import FollowUpsPage from "../pages/FollowUpsPage";
+import LoginPage from "../pages/LoginPage";
+import SettingsPage from "../pages/SettingsPage";
+import CustomerDetailsPage from "../pages/CustomerDetailsPage";
+
+import ProtectedRoute from "./ProtectedRoute";
+
+const AppRouter = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+
+        <Route element={<ProtectedRoute />}>
+          <Route element={<AppLayout />}>
+            <Route index element={<DashboardPage />} />
+
+            <Route path="customers" element={<CustomersPage />} />
+
+            <Route path="customers/create" element={<CreateCustomerPage />} />
+
+            <Route path="customers/:id" element={<CustomerDetailsPage />} />
+
+            <Route path="follow-ups" element={<FollowUpsPage />} />
+
+            <Route path="settings" element={<SettingsPage />} />
+          </Route>
+        </Route>
+
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default AppRouter;
