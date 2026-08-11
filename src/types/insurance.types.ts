@@ -160,3 +160,62 @@ export interface CustomerInsuranceListResponse {
 }
 
 export type UpdateInsuranceRequest = Partial<CreateInsuranceRequest>;
+
+export interface InsuranceCustomerSummary {
+  _id: string;
+  fullName: string;
+  phone: string;
+  secondaryPhone?: string;
+  whatsappNumber?: string;
+  nic?: string;
+  email?: string;
+  address?: string;
+  city?: string;
+}
+
+export type PopulatedCustomerInsurance = Omit<
+  CustomerInsurance,
+  "customerId"
+> & {
+  customerId: InsuranceCustomerSummary;
+};
+
+export interface GlobalInsuranceListParams {
+  page?: number;
+  limit?: number;
+
+  search?: string;
+
+  customerId?: string;
+
+  insuranceType?: InsuranceType;
+  productCode?: string;
+  insuranceCompany?: string;
+  status?: string;
+
+  expiryFrom?: string;
+  expiryTo?: string;
+
+  startFrom?: string;
+  startTo?: string;
+
+  sortBy?:
+    | "createdAt"
+    | "expiryDate"
+    | "startDate"
+    | "premiumAmount"
+    | "insuredValue";
+
+  sortOrder?: "asc" | "desc";
+}
+
+export interface GlobalInsuranceListResponse {
+  insurances: PopulatedCustomerInsurance[];
+
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}

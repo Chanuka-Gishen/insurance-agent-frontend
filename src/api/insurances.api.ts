@@ -6,6 +6,8 @@ import type {
   CreateInsuranceRequest,
   CustomerInsurance,
   CustomerInsuranceListResponse,
+  GlobalInsuranceListParams,
+  GlobalInsuranceListResponse,
   InsuranceListParams,
   UpdateInsuranceRequest,
 } from "../types/insurance.types";
@@ -83,4 +85,26 @@ export const updateInsurance = async (
   }
 
   return data.response;
+};
+
+export const getInsurances = async (
+  params: GlobalInsuranceListParams = {},
+): Promise<GlobalInsuranceListResponse> => {
+  const { data } = await apiClient.get<
+    ApiResponse<GlobalInsuranceListResponse>
+  >("/insurances", {
+    params,
+  });
+
+  return (
+    data.response ?? {
+      insurances: [],
+      pagination: {
+        page: 1,
+        limit: 20,
+        total: 0,
+        totalPages: 0,
+      },
+    }
+  );
 };
