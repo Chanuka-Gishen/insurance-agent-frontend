@@ -11,12 +11,26 @@ export interface InsuranceExpiryResult {
   daysRemaining?: number;
 }
 
-const getStartOfToday = () => {
-  const date = new Date();
+export const formatInsuranceLabel = (value?: string): string => {
+  if (!value) {
+    return "—";
+  }
 
-  date.setHours(0, 0, 0, 0);
+  return value
+    .replaceAll("_", " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+};
 
-  return date;
+export const formatCurrency = (value?: number): string => {
+  if (value === undefined || value === null) {
+    return "—";
+  }
+
+  return new Intl.NumberFormat("en-LK", {
+    style: "currency",
+    currency: "LKR",
+    maximumFractionDigits: 2,
+  }).format(value);
 };
 
 export const getInsuranceExpiryStatus = (
@@ -40,12 +54,14 @@ export const getInsuranceExpiryStatus = (
 
   expiry.setHours(0, 0, 0, 0);
 
-  const today = getStartOfToday();
+  const today = new Date();
 
-  const millisecondsPerDay = 1000 * 60 * 60 * 24;
+  today.setHours(0, 0, 0, 0);
+
+  const msPerDay = 1000 * 60 * 60 * 24;
 
   const daysRemaining = Math.ceil(
-    (expiry.getTime() - today.getTime()) / millisecondsPerDay,
+    (expiry.getTime() - today.getTime()) / msPerDay,
   );
 
   if (daysRemaining < 0) {
@@ -58,13 +74,18 @@ export const getInsuranceExpiryStatus = (
     };
   }
 
+  if (daysRemaining === 0) {
+    return {
+      status: "urgent",
+      label: "Expires today",
+      daysRemaining,
+    };
+  }
+
   if (daysRemaining <= 7) {
     return {
       status: "urgent",
-      label:
-        daysRemaining === 0
-          ? "Expires today"
-          : `Expires in ${daysRemaining} days`,
+      label: `Expires in ${daysRemaining} days`,
       daysRemaining,
     };
   }
@@ -82,16 +103,4 @@ export const getInsuranceExpiryStatus = (
     label: `Expires in ${daysRemaining} days`,
     daysRemaining,
   };
-};
-
-export const formatCurrency = (value?: number): string => {
-  if (value === undefined || value === null) {
-    return "—";
-  }
-
-  return new Intl.NumberFormat("en-LK", {
-    style: "currency",
-    currency: "LKR",
-    maximumFractionDigits: 2,
-  }).format(value);
 };

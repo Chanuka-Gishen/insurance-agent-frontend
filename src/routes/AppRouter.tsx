@@ -11,6 +11,7 @@ import SettingsPage from "../pages/SettingsPage";
 import CustomerDetailsPage from "../pages/CustomerDetailsPage";
 import EditCustomerPage from "../pages/EditCustomerPage";
 import CreateInsurancePage from "../pages/CreateInsurancePage";
+import InsuranceDetailsPage from "../pages/InsuranceDetailsPage";
 
 import ProtectedRoute from "./ProtectedRoute";
 import ScrollToTop from "../components/layout/ScrollToTop";
@@ -41,8 +42,13 @@ const AppRouter = () => {
 
             <Route
               path="customers/:customerId/insurances/:insuranceId"
-              element={<div>Insurance Details</div>}
+              element={<InsuranceDetailsPage />}
             />
+
+            {/* <Route
+              path="customers/:customerId/insurances/:insuranceId/edit"
+              element={<EditInsurancePage />}
+            /> */}
 
             <Route path="follow-ups" element={<FollowUpsPage />} />
 

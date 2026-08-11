@@ -51,3 +51,18 @@ export const createInsurance = async (
 
   return data.response.insurance;
 };
+
+export const getInsuranceById = async (
+  customerId: string,
+  insuranceId: string,
+): Promise<CustomerInsurance> => {
+  const { data } = await apiClient.get<ApiResponse<CustomerInsurance>>(
+    `/customers/${customerId}/insurances/${insuranceId}`,
+  );
+
+  if (!data.response) {
+    throw new Error("Insurance was not returned.");
+  }
+
+  return data.response;
+};
