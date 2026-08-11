@@ -5,7 +5,7 @@ import AppLayout from "../components/layout/AppLayout";
 import CreateCustomerPage from "../pages/CreateCustomerPage";
 import CustomersPage from "../pages/CustomersPage";
 import DashboardPage from "../pages/DashboardPage";
-import FollowUpsPage from "../pages/FollowUpsPage";
+import RenewalsPage from "../pages/RenewalsPage";
 import LoginPage from "../pages/LoginPage";
 import SettingsPage from "../pages/SettingsPage";
 import CustomerDetailsPage from "../pages/CustomerDetailsPage";
@@ -51,7 +51,7 @@ const AppRouter = () => {
               element={<EditInsurancePage />}
             />
 
-            <Route path="follow-ups" element={<FollowUpsPage />} />
+            <Route path="renewals" element={<RenewalsPage />} />
 
             <Route path="settings" element={<SettingsPage />} />
           </Route>

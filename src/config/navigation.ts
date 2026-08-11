@@ -1,10 +1,10 @@
 import {
   LayoutDashboard,
   Users,
-  CalendarClock,
   Settings,
   PlusCircle,
   type LucideIcon,
+  RefreshCw,
 } from "lucide-react";
 
 export interface NavigationItem {
@@ -34,9 +34,9 @@ export const navigationItems: NavigationItem[] = [
     mobile: true,
   },
   {
-    label: "Follow-ups",
-    path: "/follow-ups",
-    icon: CalendarClock,
+    label: "Renewals",
+    path: "/renewals",
+    icon: RefreshCw,
     mobile: true,
   },
   {
