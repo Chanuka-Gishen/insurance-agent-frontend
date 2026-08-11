@@ -158,3 +158,5 @@ export interface CustomerInsuranceListResponse {
     totalPages: number;
   };
 }
+
+export type UpdateInsuranceRequest = Partial<CreateInsuranceRequest>;

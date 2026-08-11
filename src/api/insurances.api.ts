@@ -7,6 +7,7 @@ import type {
   CustomerInsurance,
   CustomerInsuranceListResponse,
   InsuranceListParams,
+  UpdateInsuranceRequest,
 } from "../types/insurance.types";
 
 interface CreateInsuranceResponse {
@@ -62,6 +63,23 @@ export const getInsuranceById = async (
 
   if (!data.response) {
     throw new Error("Insurance was not returned.");
+  }
+
+  return data.response;
+};
+
+export const updateInsurance = async (
+  customerId: string,
+  insuranceId: string,
+  payload: UpdateInsuranceRequest,
+): Promise<CustomerInsurance> => {
+  const { data } = await apiClient.put<ApiResponse<CustomerInsurance>>(
+    `/customers/${customerId}/insurances/${insuranceId}`,
+    payload,
+  );
+
+  if (!data.response) {
+    throw new Error("Updated insurance was not returned.");
   }
 
   return data.response;

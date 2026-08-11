@@ -161,3 +161,22 @@ export const INSURANCE_COMPANIES = [
     label: "Fairfirst Insurance",
   },
 ] as const;
+
+export const INSURANCE_STATUS = [
+  {
+    value: "active",
+    label: "Active",
+  },
+  {
+    value: "expired",
+    label: "Expired",
+  },
+  {
+    value: "pending",
+    label: "Pending",
+  },
+  {
+    value: "cancelled",
+    label: "Cancelled",
+  },
+];

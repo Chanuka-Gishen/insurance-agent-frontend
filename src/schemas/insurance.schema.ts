@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { INSURANCE_STATUS } from "../constants/insurance.constants";
 
 const optionalString = z.string().trim().optional().or(z.literal(""));
 
@@ -91,7 +92,7 @@ export const insuranceSchema = z
     startDate: optionalString,
     expiryDate: optionalString,
 
-    status: z.string().min(1, "Status is required"),
+    status: z.enum(INSURANCE_STATUS.map((e) => e.value)),
 
     description: optionalString,
     notes: optionalString,

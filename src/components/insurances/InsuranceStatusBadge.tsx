@@ -3,6 +3,8 @@ interface InsuranceStatusBadgeProps {
 }
 
 const InsuranceStatusBadge = ({ status }: InsuranceStatusBadgeProps) => {
+  console.log(status);
+
   const normalized = status.toLowerCase();
 
   const className =

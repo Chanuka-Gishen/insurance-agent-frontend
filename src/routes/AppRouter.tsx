@@ -15,6 +15,7 @@ import InsuranceDetailsPage from "../pages/InsuranceDetailsPage";
 
 import ProtectedRoute from "./ProtectedRoute";
 import ScrollToTop from "../components/layout/ScrollToTop";
+import EditInsurancePage from "../pages/EditInsurancePage";
 
 const AppRouter = () => {
   return (
@@ -45,10 +46,10 @@ const AppRouter = () => {
               element={<InsuranceDetailsPage />}
             />
 
-            {/* <Route
+            <Route
               path="customers/:customerId/insurances/:insuranceId/edit"
               element={<EditInsurancePage />}
-            /> */}
+            />
 
             <Route path="follow-ups" element={<FollowUpsPage />} />
 

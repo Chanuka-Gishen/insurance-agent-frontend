@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import { useForm } from "react-hook-form";
 
@@ -20,7 +20,11 @@ import {
 import InsuranceTypeFields from "./InsuranceTypeFields";
 
 interface InsuranceFormProps {
+  defaultValues?: Partial<InsuranceFormValues>;
+
   isSubmitting?: boolean;
+
+  submitLabel?: string;
 
   onSubmit: (values: InsuranceFormValues) => void | Promise<void>;
 }
@@ -36,7 +40,9 @@ const optionalNumber = {
 };
 
 const InsuranceForm = ({
+  defaultValues,
   isSubmitting = false,
+  submitLabel = "Create Insurance",
   onSubmit,
 }: InsuranceFormProps) => {
   const {
@@ -53,6 +59,8 @@ const InsuranceForm = ({
 
       productCode: "",
 
+      status: undefined,
+
       insuranceCompany: "",
 
       policyNumber: "",
@@ -64,8 +72,6 @@ const InsuranceForm = ({
 
       startDate: "",
       expiryDate: "",
-
-      status: "active",
 
       description: "",
       notes: "",
@@ -79,6 +85,8 @@ const InsuranceForm = ({
       marineDetails: {},
       travelDetails: {},
       casualtyDetails: {},
+
+      ...defaultValues,
     },
   });
 
@@ -86,8 +94,19 @@ const InsuranceForm = ({
 
   const products = insuranceType ? INSURANCE_PRODUCTS[insuranceType] : [];
 
+  const previousInsuranceType = useRef<
+    InsuranceFormValues["insuranceType"] | undefined
+  >(defaultValues?.insuranceType);
+
   useEffect(() => {
-    setValue("productCode", "");
+    if (
+      previousInsuranceType.current &&
+      previousInsuranceType.current !== insuranceType
+    ) {
+      setValue("productCode", "");
+    }
+
+    previousInsuranceType.current = insuranceType;
   }, [insuranceType, setValue]);
 
   return (
@@ -274,7 +293,7 @@ const InsuranceForm = ({
         >
           <Save size={18} />
 
-          {isSubmitting ? "Saving..." : "Create Insurance"}
+          {isSubmitting ? "Saving..." : submitLabel}
         </button>
       </div>
     </form>
