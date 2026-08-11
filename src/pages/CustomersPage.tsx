@@ -13,6 +13,8 @@ import CustomerStatusFilter, {
 import CustomerTable from "../components/customers/CustomerTable";
 
 import { useCustomers } from "../hooks/customers/useCustomers";
+import { PAGE_SIZE } from "../constants/common.constants";
+import CustomerPagination from "../components/customers/CustomerPagination";
 
 const CustomersPage = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -20,6 +22,8 @@ const CustomersPage = () => {
   const [search, setSearch] = useState("");
 
   const [status, setStatus] = useState<CustomerStatus>("active");
+
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
@@ -35,14 +39,27 @@ const CustomersPage = () => {
 
   const { data, isLoading, isError, error, refetch, isFetching } = useCustomers(
     {
-      page: 1,
-      limit: 20,
+      page,
+      limit: PAGE_SIZE,
       search: search || undefined,
       isActive,
     },
   );
 
   const customers = data?.customers ?? [];
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    setPage(1);
+  }, [search, status]);
 
   return (
     <div>
@@ -144,6 +161,14 @@ const CustomersPage = () => {
             <div className="hidden md:block">
               <CustomerTable customers={customers} />
             </div>
+
+            {data?.pagination && (
+              <CustomerPagination
+                page={data.pagination.page}
+                totalPages={data.pagination.totalPages}
+                onPageChange={handlePageChange}
+              />
+            )}
           </>
         )}
       </div>

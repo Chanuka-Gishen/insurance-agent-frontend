@@ -115,6 +115,19 @@ const RenewalsPage = () => {
     setPage(1);
   };
 
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    setPage(1);
+  }, [search, insuranceType, productCode, expiryFilter]);
+
   return (
     <div>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -222,7 +235,7 @@ const RenewalsPage = () => {
               <RenewalPagination
                 page={pagination.page}
                 totalPages={pagination.totalPages}
-                onPageChange={setPage}
+                onPageChange={handlePageChange}
               />
             )}
           </>
