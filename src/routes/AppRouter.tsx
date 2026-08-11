@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import AppLayout from "../components/layout/AppLayout";
 
@@ -12,8 +12,11 @@ import CustomerDetailsPage from "../pages/CustomerDetailsPage";
 import EditCustomerPage from "../pages/EditCustomerPage";
 import CreateInsurancePage from "../pages/CreateInsurancePage";
 import InsuranceDetailsPage from "../pages/InsuranceDetailsPage";
+import NotFoundPage from "../pages/NotFoundPage";
 
 import ProtectedRoute from "./ProtectedRoute";
+import PublicOnlyRoute from "./PublicOnlyRoute";
+
 import ScrollToTop from "../components/layout/ScrollToTop";
 import EditInsurancePage from "../pages/EditInsurancePage";
 
@@ -22,7 +25,9 @@ const AppRouter = () => {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
+        <Route element={<PublicOnlyRoute />}>
+          <Route path="/login" element={<LoginPage />} />
+        </Route>
 
         <Route element={<ProtectedRoute />}>
           <Route element={<AppLayout />}>
@@ -57,7 +62,7 @@ const AppRouter = () => {
           </Route>
         </Route>
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

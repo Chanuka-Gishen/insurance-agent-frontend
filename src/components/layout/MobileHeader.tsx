@@ -4,11 +4,17 @@ import { Link } from "react-router-dom";
 const MobileHeader = () => {
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white px-4 md:hidden">
-      <div>
-        <h1 className="text-base font-bold text-slate-900">
-          Insurance Tracker
-        </h1>
-      </div>
+      <Link
+        to="/"
+        className="flex items-center"
+        aria-label="PolicyPulse Dashboard"
+      >
+        <img
+          src="/vert-logo.png"
+          alt="PolicyPulse"
+          className="h-10 w-auto object-contain"
+        />
+      </Link>
 
       <Link
         to="/settings"

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 
@@ -14,6 +14,14 @@ import { useAuth } from "../context/AuthContext";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from =
+    (
+      location.state as {
+        from?: string;
+      } | null
+    )?.from ?? "/";
 
   const { setAuthToken } = useAuth();
 
@@ -47,7 +55,7 @@ const LoginPage = () => {
 
       setAuthToken(token);
 
-      navigate("/", {
+      navigate(from, {
         replace: true,
       });
     } catch (error) {
@@ -58,12 +66,21 @@ const LoginPage = () => {
   return (
     <main className="flex min-h-screen items-center justify-center bg-slate-100 px-4">
       <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-sm sm:p-8">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-slate-900">
-            Insurance Tracker
+        {/* Branding */}
+        <div className="mb-8 text-center">
+          <img
+            src="/logo.png"
+            alt="PolicyPulse"
+            className="mx-auto h-28 w-auto object-contain sm:h-32"
+          />
+
+          <h1 className="mt-4 text-2xl font-bold text-slate-900">
+            Welcome to PolicyPulse
           </h1>
 
-          <p className="mt-2 text-sm text-slate-500">Sign in to continue</p>
+          <p className="mt-2 text-sm text-slate-500">
+            Sign in to manage your customers, policies and renewals.
+          </p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
@@ -127,6 +144,10 @@ const LoginPage = () => {
             {isSubmitting ? "Signing in..." : "Sign In"}
           </button>
         </form>
+
+        <p className="mt-6 text-center text-xs text-slate-400">
+          Stay ahead of every policy.
+        </p>
       </div>
     </main>
   );

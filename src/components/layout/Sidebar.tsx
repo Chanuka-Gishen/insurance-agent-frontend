@@ -18,14 +18,12 @@ const Sidebar = () => {
 
   return (
     <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 border-r border-slate-200 bg-white md:flex md:flex-col">
-      <div className="flex h-20 items-center border-b border-slate-100 px-6">
-        <div>
-          <h1 className="text-xl font-bold text-slate-900">
-            Insurance Tracker
-          </h1>
-
-          <p className="mt-1 text-xs text-slate-500">Sales CRM</p>
-        </div>
+      <div className="flex h-20 items-center justify-center border-b border-slate-100 px-4">
+        <img
+          src="/vert-logo.png"
+          alt="PolicyPulse"
+          className="max-h-14 w-full object-contain"
+        />
       </div>
 
       <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-5">
