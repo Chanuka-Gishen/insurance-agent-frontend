@@ -11,11 +11,11 @@ interface InsuranceListProps {
 }
 
 const InsuranceList = ({ customerId }: InsuranceListProps) => {
-  const {
-    data: insurances = [],
-    isLoading,
-    isError,
-  } = useCustomerInsurances(customerId);
+  const { data, isLoading, isError } = useCustomerInsurances(customerId);
+
+  const insurances = data?.insurances ?? [];
+
+  const total = data?.pagination.total ?? 0;
 
   return (
     <section className="rounded-2xl border border-slate-200 bg-white p-5">
@@ -28,8 +28,7 @@ const InsuranceList = ({ customerId }: InsuranceListProps) => {
           </div>
 
           <p className="mt-1 text-sm text-slate-500">
-            {insurances.length} polic
-            {insurances.length === 1 ? "y" : "ies"}
+            {total} {total === 1 ? "policy" : "policies"}
           </p>
         </div>
 

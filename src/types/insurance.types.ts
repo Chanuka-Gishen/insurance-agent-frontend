@@ -1,13 +1,87 @@
+export type InsuranceType =
+  | "motor"
+  | "property"
+  | "health"
+  | "marine"
+  | "travel"
+  | "casualty";
+
+export interface MotorDetails {
+  registrationNumber?: string;
+  vehicleType?: string;
+  make?: string;
+  model?: string;
+  manufactureYear?: number;
+  chassisNumber?: string;
+  engineNumber?: string;
+  usageType?: string;
+  valuation?: number;
+  valuationDate?: string;
+  isLeased?: boolean;
+  leasingCompany?: string;
+}
+
+export interface PropertyDetails {
+  propertyType?: string;
+  address?: string;
+  city?: string;
+  buildingValue?: number;
+  contentsValue?: number;
+  valuation?: number;
+  valuationDate?: string;
+  constructionType?: string;
+  constructionYear?: number;
+}
+
+export interface HealthDetails {
+  planType?: string;
+  numberOfMembers?: number;
+  coverageLimit?: number;
+  relationshipType?: string;
+  remarks?: string;
+}
+
+export interface MarineDetails {
+  cargoType?: string;
+  transportMode?: string;
+  origin?: string;
+  destination?: string;
+  vesselName?: string;
+  shipmentReference?: string;
+  cargoValue?: number;
+}
+
+export interface TravelDetails {
+  destination?: string;
+  departureDate?: string;
+  returnDate?: string;
+  numberOfTravellers?: number;
+  travelPurpose?: string;
+  coverageLimit?: number;
+}
+
+export interface CasualtyDetails {
+  coverageType?: string;
+  occupation?: string;
+  businessType?: string;
+  numberOfEmployees?: number;
+  liabilityLimit?: number;
+  riskDescription?: string;
+}
+
 export interface CustomerInsurance {
   _id: string;
   customerId: string;
 
-  policyNumber?: string;
+  insuranceType: InsuranceType;
 
-  insuranceType: string;
+  productCode: string;
+  productName: string;
+
   insuranceCompany?: string;
 
-  description?: string;
+  policyNumber?: string;
+  proposalNumber?: string;
 
   premiumAmount?: number;
   insuredValue?: number;
@@ -17,6 +91,15 @@ export interface CustomerInsurance {
 
   status: string;
 
+  description?: string;
+
+  motorDetails?: MotorDetails;
+  propertyDetails?: PropertyDetails;
+  healthDetails?: HealthDetails;
+  marineDetails?: MarineDetails;
+  travelDetails?: TravelDetails;
+  casualtyDetails?: CasualtyDetails;
+
   notes?: string;
 
   createdAt: string;
@@ -24,14 +107,15 @@ export interface CustomerInsurance {
 }
 
 export interface CreateInsuranceRequest {
-  customerId: string;
+  insuranceType: InsuranceType;
 
-  policyNumber?: string;
+  productCode: string;
+  productName: string;
 
-  insuranceType: string;
   insuranceCompany?: string;
 
-  description?: string;
+  policyNumber?: string;
+  proposalNumber?: string;
 
   premiumAmount?: number;
   insuredValue?: number;
@@ -40,25 +124,37 @@ export interface CreateInsuranceRequest {
   expiryDate?: string;
 
   status?: string;
+
+  description?: string;
+
+  motorDetails?: MotorDetails;
+  propertyDetails?: PropertyDetails;
+  healthDetails?: HealthDetails;
+  marineDetails?: MarineDetails;
+  travelDetails?: TravelDetails;
+  casualtyDetails?: CasualtyDetails;
 
   notes?: string;
 }
 
-export interface UpdateInsuranceRequest {
-  policyNumber?: string;
+export interface InsuranceListParams {
+  page?: number;
+  limit?: number;
+  search?: string;
 
-  insuranceType?: string;
+  insuranceType?: InsuranceType;
+  productCode?: string;
   insuranceCompany?: string;
-
-  description?: string;
-
-  premiumAmount?: number;
-  insuredValue?: number;
-
-  startDate?: string;
-  expiryDate?: string;
-
   status?: string;
+}
 
-  notes?: string;
+export interface CustomerInsuranceListResponse {
+  insurances: CustomerInsurance[];
+
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
 }

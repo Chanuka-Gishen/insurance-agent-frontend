@@ -13,10 +13,12 @@ import EditCustomerPage from "../pages/EditCustomerPage";
 import CreateInsurancePage from "../pages/CreateInsurancePage";
 
 import ProtectedRoute from "./ProtectedRoute";
+import ScrollToTop from "../components/layout/ScrollToTop";
 
 const AppRouter = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
 
